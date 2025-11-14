@@ -4,8 +4,9 @@ import axios from "axios";
 import AdmZip from "adm-zip";
 import { fileURLToPath } from "url";
 
+// Fix: Correct __dirname and __filename in ESM
 const __filename = fileURLToPath(import.meta.url);
-const dirname = path.dirname(filename);
+const __dirname = path.dirname(__filename);
 
 // === CONFIG ===
 const repoZipUrl = "https://github.com/newwrld-dev/POPKID-XTR/archive/refs/heads/main.zip";
@@ -48,7 +49,7 @@ async function downloadAndExtractRepo(repoFolder) {
   try {
     console.log("🔄 Downloading bot ZIP...");
     const response = await axios.get(repoZipUrl, { responseType: "arraybuffer" });
-    const zip = new AdmZip(Buffer.from(response.data, "binary"));
+    const zip = new AdmZip(Buffer.from(response.data));
     zip.extractAllTo(repoFolder, true);
     console.log("✅ Bot repo extracted");
   } catch (err) {
@@ -77,16 +78,18 @@ function copyConfigs(repoPath) {
   }
 }
 
-// === Step 4: Launch Bot (import dynamic)
+// === Step 4: Launch Bot (dynamic import)
 async function launchBot(extractedRepoPath) {
   try {
     console.log("🚀 Launching your bot...");
     process.chdir(extractedRepoPath);
+
     const indexPath = path.join(extractedRepoPath, "index.js");
     if (!fs.existsSync(indexPath)) {
       console.error("❌ index.js not found in extracted repo!");
       process.exit(1);
     }
+
     await import(indexPath);
   } catch (err) {
     console.error("❌ Bot start error:", err.message);

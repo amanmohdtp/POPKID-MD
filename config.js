@@ -32,8 +32,8 @@ module.exports = {
     AUTO_VOICE: process.env.AUTO_VOICE || "false", // Automatic voices
     AUTO_STICKER: process.env.AUTO_STICKER || "false", // Automatic stickers
     STICKER_NAME: process.env.STICKER_NAME || "GODZEXMD", // Sticker pack name
-    MENU_IMAGE_URL: process.env.MENU_IMAGE_URL || "", // Menu image
-    ALIVE_IMG: process.env.ALIVE_IMG || "", // Alive image
+    MENU_IMAGE_URL: process.env.MENU_IMAGE_URL || "https://files.catbox.moe/c6tn25.jpg", // Menu image
+    ALIVE_IMG: process.env.ALIVE_IMG || "https://files.catbox.moe/7upyfd.jpg", // Alive image
     LIVE_MSG: process.env.LIVE_MSG || "> GODZE XMD IS ALIVE 😍", // Alive message
 
     // --- REACTION SETTINGS ---
